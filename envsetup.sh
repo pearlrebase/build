@@ -596,9 +596,9 @@ function print_lunch_menu()
     local choice
     for choice in ${LUNCH_MENU_CHOICES[@]}
     do
-        echo "     $i. $choice"
+        echo " $i. $choice "
         i=$(($i+1))
-    done
+    done | column
 
     if [ "z${PEARL_DEVICES_ONLY}" != "z" ]; then
        echo " "
