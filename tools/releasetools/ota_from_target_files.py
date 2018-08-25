@@ -924,6 +924,10 @@ script.AppendExtra("sleep (2);")
 
   device_specific.FullOTA_PostValidate()
 
+  script.Mount("/system")
+  script.RunCleanCache()
+  script.Unmount("/system")
+
   if OPTIONS.backuptool:
     script.ShowProgress(0.02, 10)
     script.Mount("/system")
