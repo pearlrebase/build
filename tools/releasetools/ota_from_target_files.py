@@ -843,6 +843,10 @@ script.AppendExtra("sleep (2);")
     script.RunBackup("backup")
     script.Unmount("/system")
 
+  script.Mount("/system")
+  script.RunCleanCache()
+  script.Unmount("/system")
+
   system_progress = 0.75
 
   if target_info.GetBuildProp("ro.pearl.display.version") is not None:
