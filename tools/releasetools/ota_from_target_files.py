@@ -849,10 +849,6 @@ script.AppendExtra("sleep (2);")
     if is_system_as_root:
       script.fstab["/system"].mount_point = "/"
 
-  script.Mount("/system")
-  script.RunCleanCache()
-  script.Unmount("/system")
-
   system_progress = 0.75
 
   if target_info.GetBuildProp("ro.pearl.display.version") is not None:
@@ -915,10 +911,6 @@ script.AppendExtra("sleep (2);")
   common.ZipWriteStr(output_zip, "boot.img", boot_img.data)
 
   device_specific.FullOTA_PostValidate()
-
-  script.Mount("/system")
-  script.RunCleanCache()
-  script.Unmount("/system")
 
   if OPTIONS.backuptool:
     script.ShowProgress(0.02, 10)
