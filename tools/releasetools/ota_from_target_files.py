@@ -820,6 +820,17 @@ else if get_stage("%(bcb_dev)s") == "3/3" then
   # Dump fingerprints
   script.Print("Target: {}".format(target_info.fingerprint))
 
+
+script.Print(" ")
+script.Print("    ██████╗ ███████╗ █████╗ ██████╗ ██╗                    ██████╗ ███████╗ ")
+script.Print("    ██╔══██╗██╔════╝██╔══██╗██╔══██╗██║                   ██╔═══██╗██╔════╝ ")
+script.Print("    ██████╔╝█████╗  ███████║██████╔╝██║         █████╗    ██║   ██║███████╗ ")
+script.Print("    ██╔═══╝ ██╔══╝  ██╔══██║██╔══██╗██║         ╚════╝    ██║   ██║╚════██║ ")
+script.Print("    ██║     ███████╗██║  ██║██║  ██║███████╗              ╚██████╔╝███████║ ")
+script.Print("    ╚═╝     ╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝               ╚═════╝ ╚══════╝ ")
+script.Print(" ")
+script.AppendExtra("sleep (2);")
+
   device_specific.FullOTA_InstallBegin()
 
   CopyInstallTools(output_zip)
