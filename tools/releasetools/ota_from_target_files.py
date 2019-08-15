@@ -825,12 +825,10 @@ else if get_stage("%(bcb_dev)s") == "3/3" then
 
 
 script.Print(" ")
-script.Print("    ██████╗ ███████╗ █████╗ ██████╗ ██╗                    ██████╗ ███████╗ ")
-script.Print("    ██╔══██╗██╔════╝██╔══██╗██╔══██╗██║                   ██╔═══██╗██╔════╝ ")
-script.Print("    ██████╔╝█████╗  ███████║██████╔╝██║         █████╗    ██║   ██║███████╗ ")
-script.Print("    ██╔═══╝ ██╔══╝  ██╔══██║██╔══██╗██║         ╚════╝    ██║   ██║╚════██║ ")
-script.Print("    ██║     ███████╗██║  ██║██║  ██║███████╗              ╚██████╔╝███████║ ")
-script.Print("    ╚═╝     ╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝               ╚═════╝ ╚══════╝ ")
+script.Print("          ___               __        ____  ____ "
+script.Print("         / _ \___ ___ _____/ / ____  / __ \/ __/ "
+script.Print("        / ___/ -_) _ `/ __/ / /___/ / /_/ /\ \   "
+script.Print("       /_/   \__/\_,_/_/ /_/        \____/___/   "
 script.Print(" ")
 script.AppendExtra("sleep (2);")
   script.AppendExtra("ifelse(is_mounted(\"/system\"), unmount(\"/system\"));")
@@ -857,12 +855,11 @@ script.AppendExtra("sleep (2);")
     buildidn = target_info.GetBuildProp("ro.build.id")
     buildday = target_info.GetBuildProp("ro.build.date")
     securep = target_info.GetBuildProp("ro.build.version.security_patch")
-    density = target_info.GetBuildProp("ro.sf.lcd_density,False")
     device = target_info.GetBuildProp("ro.pearl.device")
     androidver = target_info.GetBuildProp("ro.build.version.release")
     manufacturer = target_info.GetBuildProp("ro.product.manufacturer")
     sdkver = target_info.GetBuildProp("ro.build.version.sdk")
-    script.Print(" **************** Software *****************");
+    script.Print(" *******************************************");
     script.Print(" OS version: %s"%(buildid));
     script.Print("");
     script.Print(" Android version: %s"%(androidver));
@@ -871,17 +868,9 @@ script.AppendExtra("sleep (2);")
     script.Print("");
     script.Print(" SDK version: %s"%(sdkver));
     script.Print("");
-    script.Print(" Root status: Disabled");
-    script.Print("");
-    script.Print(" Build ID: %s"%(buildidn));
-    script.Print("");
     script.Print(" Build date: %s"%(buildday));
-    script.Print(" **************** Hardware *****************");
+    script.Print("");
     script.Print(" Device codename: %s"%(device));
-    script.Print("");
-    script.Print(" Manufacturer: %s"%(manufacturer));
-    script.Print("");
-    script.Print(" LCD density: %s"%(density));
     script.Print("");
     script.Print(" *******************************************");
 
