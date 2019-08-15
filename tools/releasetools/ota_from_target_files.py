@@ -830,7 +830,7 @@ script.Print("    ██║     ███████╗██║  ██║█�
 script.Print("    ╚═╝     ╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝               ╚═════╝ ╚══════╝ ")
 script.Print(" ")
 script.AppendExtra("sleep (2);")
-
+  script.AppendExtra("ifelse(is_mounted(\"/system\"), unmount(\"/system\"));")
   device_specific.FullOTA_InstallBegin()
 
   CopyInstallTools(output_zip)
