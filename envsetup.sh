@@ -29,7 +29,7 @@ Invoke ". build/envsetup.sh" from your shell to add the following functions to y
 
 EOF
 
-    __print_custom_functions_help
+    __print_pearl_functions_help
 
 cat <<EOF
 
@@ -43,7 +43,7 @@ EOF
     local T=$(gettop)
     local A=""
     local i
-    for i in `cat $T/build/envsetup.sh $T/vendor/aosp/build/envsetup.sh | sed -n "/^[[:blank:]]*function /s/function \([a-z_]*\).*/\1/p" | sort | uniq`; do
+    for i in `cat $T/build/envsetup.sh $T/vendor/pearl/build/envsetup.sh | sed -n "/^[[:blank:]]*function /s/function \([a-z_]*\).*/\1/p" | sort | uniq`; do
       A="$A $i"
     done
     echo $A
@@ -54,8 +54,8 @@ function build_build_var_cache()
 {
     local T=$(gettop)
     # Grep out the variable names from the script.
-    cached_vars=`cat $T/build/envsetup.sh $T/vendor/aosp/build/envsetup.sh | tr '()' '  ' | awk '{for(i=1;i<=NF;i++) if($i~/get_build_var/) print $(i+1)}' | sort -u | tr '\n' ' '`
-    cached_abs_vars=`cat $T/build/envsetup.sh $T/vendor/aosp/build/envsetup.sh | tr '()' '  ' | awk '{for(i=1;i<=NF;i++) if($i~/get_abs_build_var/) print $(i+1)}' | sort -u | tr '\n' ' '`
+    cached_vars=`cat $T/build/envsetup.sh $T/vendor/pearl/build/envsetup.sh | tr '()' '  ' | awk '{for(i=1;i<=NF;i++) if($i~/get_build_var/) print $(i+1)}' | sort -u | tr '\n' ' '`
+    cached_abs_vars=`cat $T/build/envsetup.sh $T/vendor/pearl/build/envsetup.sh | tr '()' '  ' | awk '{for(i=1;i<=NF;i++) if($i~/get_abs_build_var/) print $(i+1)}' | sort -u | tr '\n' ' '`
     # Call the build system to dump the "<val>=<value>" pairs as a shell script.
     build_dicts_script=`\builtin cd $T; build/soong/soong_ui.bash --dumpvars-mode \
                         --vars="$cached_vars" \
@@ -137,12 +137,12 @@ function check_product()
         echo "Couldn't locate the top of the tree.  Try setting TOP." >&2
         return
     fi
-    if (echo -n $1 | grep -q -e "^aosp_") ; then
-        CUSTOM_BUILD=$(echo -n $1 | sed -e 's/^aosp_//g')
+    if (echo -n $1 | grep -q -e "^pearl_") ; then
+        PEARL_BUILD=$(echo -n $1 | sed -e 's/^pearl_//g')
     else
-        CUSTOM_BUILD=
+        PEARL_BUILD=
     fi
-    export CUSTOM_BUILD
+    export PEARL_BUILD
 
         TARGET_PRODUCT=$1 \
         TARGET_BUILD_VARIANT= \
@@ -439,7 +439,7 @@ function chooseproduct()
     if [ "x$TARGET_PRODUCT" != x ] ; then
         default_value=$TARGET_PRODUCT
     else
-        default_value=aosp_arm
+        default_value=pearl_arm
     fi
 
     export TARGET_BUILD_APPS=
@@ -557,12 +557,12 @@ function add_lunch_combo()
 }
 
 # add the default one here
-#add_lunch_combo aosp_arm-eng
-#add_lunch_combo aosp_arm64-eng
-#add_lunch_combo aosp_mips-eng
-#add_lunch_combo aosp_mips64-eng
-#add_lunch_combo aosp_x86-eng
-#add_lunch_combo aosp_x86_64-eng
+#add_lunch_combo pearl_arm-eng
+#add_lunch_combo pearl_arm64-eng
+#add_lunch_combo pearl_mips-eng
+#add_lunch_combo pearl_mips64-eng
+#add_lunch_combo pearl_x86-eng
+#add_lunch_combo pearl_x86_64-eng
 
 function print_lunch_menu()
 {
@@ -591,7 +591,7 @@ function lunch()
         answer=$1
     else
         print_lunch_menu
-        echo -n "Which would you like? [aosp_arm-eng] "
+        echo -n "Which would you like? [pearl_arm-eng] "
         read answer
     fi
 
@@ -599,7 +599,7 @@ function lunch()
 
     if [ -z "$answer" ]
     then
-        selection=aosp_arm-eng
+        selection=pearl_arm-eng
     elif (echo -n $answer | grep -q -e "^[0-9][0-9]*$")
     then
         if [ $answer -le ${#LUNCH_MENU_CHOICES[@]} ]
@@ -636,13 +636,13 @@ function lunch()
         # if we can't find a product, try to grab it off the PixelExperience-Devices GitHub
         T=$(gettop)
         cd $T > /dev/null
-        vendor/aosp/build/tools/roomservice.py $product
+        vendor/pearl/build/tools/roomservice.py $product
         cd - > /dev/null
         check_product $product
     else
         T=$(gettop)
         cd $T > /dev/null
-        vendor/aosp/build/tools/roomservice.py $product true
+        vendor/pearl/build/tools/roomservice.py $product true
         cd - > /dev/null
     fi
 
@@ -723,13 +723,13 @@ function tapas()
         return
     fi
 
-    local product=aosp_arm
+    local product=pearl_arm
     case $arch in
-      x86)    product=aosp_x86;;
-      mips)   product=aosp_mips;;
-      arm64)  product=aosp_arm64;;
-      x86_64) product=aosp_x86_64;;
-      mips64)  product=aosp_mips64;;
+      x86)    product=pearl_x86;;
+      mips)   product=pearl_mips;;
+      arm64)  product=pearl_arm64;;
+      x86_64) product=pearl_x86_64;;
+      mips64)  product=pearl_mips64;;
     esac
     if [ -z "$variant" ]; then
         variant=eng
@@ -1721,4 +1721,4 @@ addcompletions
 
 export ANDROID_BUILD_TOP=$(gettop)
 
-. $ANDROID_BUILD_TOP/vendor/aosp/build/envsetup.sh
+. $ANDROID_BUILD_TOP/vendor/pearl/build/envsetup.sh

@@ -228,8 +228,8 @@ FIND_LEAVES_EXCLUDES := $(addprefix --prune=, $(SCAN_EXCLUDE_DIRS) .repo .git)
 # be device and hardware independent.
 $(call project-set-path-variant,ril,TARGET_RIL_VARIANT,hardware/ril)
 
-ifneq ($(CUSTOM_BUILD),)
-include vendor/aosp/config/BoardConfig.mk
+ifneq ($(PEARL_BUILD),)
+include vendor/pearl/config/BoardConfig.mk
 endif
 
 # The build system exposes several variables for where to find the kernel
@@ -1142,10 +1142,10 @@ include $(BUILD_SYSTEM)/ninja_config.mk
 include $(BUILD_SYSTEM)/soong_config.mk
 endif
 
-ifneq ($(CUSTOM_BUILD),)
+ifneq ($(PEARL_BUILD),)
 ## We need to be sure the global selinux policies are included
 ## last, to avoid accidental resetting by device configs
-$(eval include device/custom/sepolicy/common/sepolicy.mk)
+$(eval include device/pearl/sepolicy/common/sepolicy.mk)
 endif
 
 # Include any vendor specific config.mk file
